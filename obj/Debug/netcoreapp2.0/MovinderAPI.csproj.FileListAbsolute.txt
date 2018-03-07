@@ -1,0 +1,10 @@
+d:\Web\Rofls\MovinderAPI\bin\Debug\netcoreapp2.0\MovinderAPI.deps.json
+d:\Web\Rofls\MovinderAPI\bin\Debug\netcoreapp2.0\MovinderAPI.runtimeconfig.json
+d:\Web\Rofls\MovinderAPI\bin\Debug\netcoreapp2.0\MovinderAPI.runtimeconfig.dev.json
+d:\Web\Rofls\MovinderAPI\bin\Debug\netcoreapp2.0\MovinderAPI.dll
+d:\Web\Rofls\MovinderAPI\bin\Debug\netcoreapp2.0\MovinderAPI.pdb
+d:\Web\Rofls\MovinderAPI\obj\Debug\netcoreapp2.0\MovinderAPI.csproj.CoreCompileInputs.cache
+d:\Web\Rofls\MovinderAPI\obj\Debug\netcoreapp2.0\MovinderAPI.AssemblyInfoInputs.cache
+d:\Web\Rofls\MovinderAPI\obj\Debug\netcoreapp2.0\MovinderAPI.AssemblyInfo.cs
+d:\Web\Rofls\MovinderAPI\obj\Debug\netcoreapp2.0\MovinderAPI.dll
+d:\Web\Rofls\MovinderAPI\obj\Debug\netcoreapp2.0\MovinderAPI.pdb
