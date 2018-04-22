@@ -41,6 +41,21 @@ namespace MovinderAPI.Migrations
                     b.ToTable("Invitaiton");
                 });
 
+            modelBuilder.Entity("MovinderAPI.Models.Respond", b =>
+                {
+                    b.Property<long>("invitationId");
+
+                    b.Property<long>("responderId");
+
+                    b.Property<int>("status");
+
+                    b.HasKey("invitationId", "responderId");
+
+                    b.HasIndex("responderId");
+
+                    b.ToTable("Respond");
+                });
+
             modelBuilder.Entity("MovinderAPI.Models.User", b =>
                 {
                     b.Property<long>("Id")
@@ -71,6 +86,19 @@ namespace MovinderAPI.Migrations
                     b.HasOne("MovinderAPI.Models.User", "inviter")
                         .WithMany("InvaterPosts")
                         .HasForeignKey("inviterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MovinderAPI.Models.Respond", b =>
+                {
+                    b.HasOne("MovinderAPI.Models.Invitaiton", "invitaiton")
+                        .WithMany("responders")
+                        .HasForeignKey("invitationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MovinderAPI.Models.User", "responder")
+                        .WithMany("Responds")
+                        .HasForeignKey("responderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
