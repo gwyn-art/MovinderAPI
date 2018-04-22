@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MovinderAPI.Models;
+using System.Collections.Generic;
 
 namespace MovinderAPI.Models
 {
@@ -19,5 +20,6 @@ namespace MovinderAPI.Models
 
         //related
         public User inviter { get; set; }
+        public List<Respond> responders { get; set; }
     }
 }

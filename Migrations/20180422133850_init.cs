@@ -47,14 +47,47 @@ namespace MovinderAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Respond",
+                columns: table => new
+                {
+                    invitationId = table.Column<long>(nullable: false),
+                    responderId = table.Column<long>(nullable: false),
+                    status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Respond", x => new { x.invitationId, x.responderId });
+                    table.ForeignKey(
+                        name: "FK_Respond_Invitaiton_invitationId",
+                        column: x => x.invitationId,
+                        principalTable: "Invitaiton",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Respond_User_responderId",
+                        column: x => x.responderId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Invitaiton_inviterId",
                 table: "Invitaiton",
                 column: "inviterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Respond_responderId",
+                table: "Respond",
+                column: "responderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Respond");
+
             migrationBuilder.DropTable(
                 name: "Invitaiton");
 

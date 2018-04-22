@@ -5,6 +5,7 @@ using System.Linq;
 using MovinderAPI.Dtos;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MovinderAPI.Controllers
 {
@@ -63,14 +64,6 @@ namespace MovinderAPI.Controllers
         [HttpPost("new")]
         public IActionResult Create([FromBody] Invitaiton invitation)
         {
-            if (invitation.inviterId == null)
-            {
-                return Ok(new {
-                    success = false,
-                    error = "Inviter Id null"
-                });
-            }
-
             var user = _context.Users.SingleOrDefault(u => u.Id == invitation.inviterId);
 
             if(user == null)

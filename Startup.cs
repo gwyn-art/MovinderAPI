@@ -42,21 +42,27 @@ namespace MovinderAPI
             services.Configure<AppSettings>(appSettingsSection);
 
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";            
             })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
+            .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+            {                        
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {                            
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your secret goes here")),
+
+                    ValidateIssuer = true,
+                    ValidIssuer = "The name of the issuer",
+
+                    ValidateAudience = true,
+                    ValidAudience = "The name of the audience",
+
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                 };
             });
         }
@@ -75,7 +81,6 @@ namespace MovinderAPI
                 .AllowCredentials());
  
             app.UseAuthentication();
- 
             app.UseMvc();
         }
     }

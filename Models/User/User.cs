@@ -22,5 +22,6 @@ namespace MovinderAPI.Models
 
         // related
         public List<Invitaiton> InvaterPosts { get; set; }
+        public List<Respond> Responds { get; set; }
     }
 }
