@@ -2,59 +2,89 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MovinderAPI.Models;
 using System.Linq;
+using MovinderAPI.Dtos;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovinderAPI.Controllers
 {
-    [Route("api/invitation")]
+    [Route("api/invitations")]
     public class InvitationController : Controller
     {
-        private readonly InvitationContext _context;
+        private readonly MovinderContext _context;
+        private IMapper _mapper;
 
-        public InvitationController(InvitationContext context)
-        {
-            _context = context;
-
-            if (_context.Invitaitons.Count() == 0)
-            {
-                _context.Invitaitons.Add(new Invitaiton { 
-                    city = "Kyiv",
-                    name = "Ruslan",
-                    cinema = "Jovten",
-                    movie = "some" 
-                    });
-                _context.SaveChanges();
+        public InvitationController(
+            MovinderContext context,
+            IMapper mapper) {
+                _context = context;
+                _mapper = mapper;
             }
-        }
-
-        [HttpGet]
-        public IEnumerable<Invitaiton> GetAll()
-        {
-            return _context.Invitaitons.ToList();
-        }
-
-        [HttpGet("{id}", Name = "getInvitation")]
-        public IActionResult GetById(long id)
-        {
-            var item = _context.Invitaitons.FirstOrDefault(t => t.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
-        }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Invitaiton invitaiton)
+        public IActionResult GetAll()
         {
-            if (invitaiton == null)
+            var invitations = _context.Invitaitons
+                .Include(i => i.inviter)
+                .ToList();
+                
+            var invitationsDto = _mapper.Map<IList<InvitationDto>>(invitations);
+            
+
+            return Ok(new {
+                success = true,
+                invitations = invitationsDto
+            });
+        }
+
+        [HttpPost("get")]
+        public IActionResult GetById([FromBody]InvitationDto invitationDto)
+        {
+            var invitation = _context.Invitaitons
+                .Include(i => i.inviter)
+                .FirstOrDefault(t => t.Id == invitationDto.Id);
+            
+            if (invitation == null)
             {
-                return BadRequest();
+                return Ok(new {
+                    success = false,
+                    error = "Invintation not found"
+                });
             }
 
-            _context.Invitaitons.Add(invitaiton);
+            invitationDto = _mapper.Map<InvitationDto>(invitation);
+
+            return Ok(new {
+                success = true,
+                invite = invitationDto
+            });
+        }
+
+        [HttpPost("new")]
+        public IActionResult Create([FromBody] Invitaiton invitation)
+        {
+            if (invitation.inviterId == null)
+            {
+                return Ok(new {
+                    success = false,
+                    error = "Inviter Id null"
+                });
+            }
+
+            var user = _context.Users.SingleOrDefault(u => u.Id == invitation.inviterId);
+
+            if(user == null)
+            {
+                return Ok(new {
+                    success = false,
+                    error = $"Can't find user with id = {invitation.inviterId}"
+                });
+            }
+
+            _context.Invitaitons.Add(invitation);
             _context.SaveChanges();
 
-            return CreatedAtRoute("getInvitation", new { id = invitaiton.Id }, invitaiton);
+            return CreatedAtRoute("get", new { id = invitation.Id }, invitation);
         }
     }
 
