@@ -68,6 +68,7 @@ namespace MovinderAPI.Controllers
             respond.status = 2;
 
             _context.Responds.Update(respond);
+            _context.SaveChanges();
 
             var respondDto = _mapper.Map<RespondDto>(respond);
 
