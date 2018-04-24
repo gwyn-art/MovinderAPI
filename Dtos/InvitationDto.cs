@@ -1,3 +1,6 @@
+using MovinderAPI.Models;
+using System.Collections.Generic;
+
 namespace MovinderAPI.Dtos
 {
     public class InvitationDto
@@ -9,5 +12,6 @@ namespace MovinderAPI.Dtos
         public string cinema { get; set; }
 
         public UserDto inviter {get; set;}
+        public List<Respond> responds {get; set; }
     }
 }

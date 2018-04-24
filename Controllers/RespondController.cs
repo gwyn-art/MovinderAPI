@@ -6,6 +6,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using System.Web;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovinderAPI.Controllers
 {
@@ -47,7 +48,7 @@ namespace MovinderAPI.Controllers
             });
         }
 
-        [HttpPost("/confirm")]
+        [HttpPost("confirm")]
         public IActionResult Confirm([FromBody] Respond confirm)
         {
             var respond = _context.Responds.SingleOrDefault( r => 
@@ -68,6 +69,21 @@ namespace MovinderAPI.Controllers
             return Ok(new {
                 success = true,
                 respond = respond
+            });
+        }
+
+        [HttpPost("getUsersResponses")]
+        public IActionResult UsersRepsonses([FromBody] UserDto userDto)
+        {
+            var invitations = _context.Invitaitons
+                .Include(i => i.responders)
+                .All(i => i.inviterId == userDto.id);
+            
+            var invitationsDto = _mapper.Map<InvitationDto>(invitations);
+
+            return Ok(new {
+                success = true,
+                responds = invitationsDto
             });
         }
     }
