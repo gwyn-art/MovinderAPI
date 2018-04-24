@@ -19,7 +19,7 @@ namespace MovinderAPI.Models
             modelBuilder.Entity<Invitaiton>().ToTable("Invitaiton");
             modelBuilder.Entity<Respond>()
                 .ToTable("Respond")
-                .HasKey(r => new {r.invitationId, r.responderId});
+                .HasKey(r => new {r.invitationId, r.respondentId});
 
             modelBuilder.Entity<Invitaiton>()
                 .HasOne( i => i.inviter)
@@ -29,7 +29,7 @@ namespace MovinderAPI.Models
             modelBuilder.Entity<Respond>()
                 .HasOne( r => r.responder)
                 .WithMany( u => u.Responds)
-                .HasForeignKey( i => i.responderId);
+                .HasForeignKey( i => i.respondentId);
 
             modelBuilder.Entity<Respond>()
                 .HasOne( r => r.invitaiton)

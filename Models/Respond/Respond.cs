@@ -2,7 +2,7 @@ namespace MovinderAPI.Models
 {
     public class Respond
     {
-        public long responderId { get; set; }
+        public long respondentId { get; set; }
         public long invitationId { get; set; }
         public int status { get; set; }
 

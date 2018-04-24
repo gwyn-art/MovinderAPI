@@ -52,12 +52,12 @@ namespace MovinderAPI.Migrations
                 columns: table => new
                 {
                     invitationId = table.Column<long>(nullable: false),
-                    responderId = table.Column<long>(nullable: false),
+                    respondentId = table.Column<long>(nullable: false),
                     status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Respond", x => new { x.invitationId, x.responderId });
+                    table.PrimaryKey("PK_Respond", x => new { x.invitationId, x.respondentId });
                     table.ForeignKey(
                         name: "FK_Respond_Invitaiton_invitationId",
                         column: x => x.invitationId,
@@ -65,8 +65,8 @@ namespace MovinderAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Respond_User_responderId",
-                        column: x => x.responderId,
+                        name: "FK_Respond_User_respondentId",
+                        column: x => x.respondentId,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -78,9 +78,9 @@ namespace MovinderAPI.Migrations
                 column: "inviterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Respond_responderId",
+                name: "IX_Respond_respondentId",
                 table: "Respond",
-                column: "responderId");
+                column: "respondentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

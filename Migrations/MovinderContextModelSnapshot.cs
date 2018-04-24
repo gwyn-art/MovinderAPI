@@ -45,13 +45,13 @@ namespace MovinderAPI.Migrations
                 {
                     b.Property<long>("invitationId");
 
-                    b.Property<long>("responderId");
+                    b.Property<long>("respondentId");
 
                     b.Property<int>("status");
 
-                    b.HasKey("invitationId", "responderId");
+                    b.HasKey("invitationId", "respondentId");
 
-                    b.HasIndex("responderId");
+                    b.HasIndex("respondentId");
 
                     b.ToTable("Respond");
                 });
@@ -98,7 +98,7 @@ namespace MovinderAPI.Migrations
 
                     b.HasOne("MovinderAPI.Models.User", "responder")
                         .WithMany("Responds")
-                        .HasForeignKey("responderId")
+                        .HasForeignKey("respondentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
