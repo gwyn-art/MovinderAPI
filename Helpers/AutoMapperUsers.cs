@@ -11,8 +11,11 @@ namespace MovinderAPI.Helpers
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
-            CreateMap<Invitaiton, InvitationDto>();
-            CreateMap<InvitationDto, Invitaiton>();
+            CreateMap<Invitation, InvitationDto>();
+            CreateMap<InvitationDto, Invitation>();
+
+            CreateMap<RespondDto, Respond>();
+            CreateMap<Respond, RespondDto>();
         }
     }
 }

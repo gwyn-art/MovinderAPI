@@ -41,10 +41,13 @@ namespace MovinderAPI.Controllers
             respond.status = 1;
 
             _context.Responds.Add(respond);
+            _context.SaveChanges();
+
+            var respondDto = _mapper.Map<RespondDto>(respond);
 
             return Ok(new {
                 success = true,
-                respond = respond
+                respond = respondDto
             });
         }
 
@@ -66,9 +69,11 @@ namespace MovinderAPI.Controllers
 
             _context.Responds.Update(respond);
 
+            var respondDto = _mapper.Map<RespondDto>(respond);
+
             return Ok(new {
                 success = true,
-                respond = respond
+                respond = respondDto
             });
         }
 

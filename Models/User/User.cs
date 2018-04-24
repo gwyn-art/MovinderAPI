@@ -21,7 +21,7 @@ namespace MovinderAPI.Models
         public byte[] passwordSalt { get; set; }
 
         // related
-        public List<Invitaiton> InvaterPosts { get; set; }
+        public List<Invitation> InvaterPosts { get; set; }
         public List<Respond> Responds { get; set; }
     }
 }

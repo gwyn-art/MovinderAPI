@@ -10,18 +10,18 @@ namespace MovinderAPI.Models
         {
         }
 
-        public DbSet<Invitaiton> Invitaitons { get; set; }
+        public DbSet<Invitation> Invitaitons { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Respond> Responds { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("User");
-            modelBuilder.Entity<Invitaiton>().ToTable("Invitaiton");
+            modelBuilder.Entity<Invitation>().ToTable("Invitaiton");
             modelBuilder.Entity<Respond>()
                 .ToTable("Respond")
                 .HasKey(r => new {r.invitationId, r.respondentId});
 
-            modelBuilder.Entity<Invitaiton>()
+            modelBuilder.Entity<Invitation>()
                 .HasOne( i => i.inviter)
                 .WithMany( u => u.InvaterPosts)
                 .HasForeignKey( i => i.inviterId);

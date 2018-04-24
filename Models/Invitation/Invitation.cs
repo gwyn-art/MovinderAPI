@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MovinderAPI.Models
 {
-    public class Invitaiton
+    public class Invitation
     {
         [Key]
         public long Id { get; set; }

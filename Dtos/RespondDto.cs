@@ -1,6 +1,6 @@
-namespace MovinderAPI.Models
+namespace MovinderAPI.Dtos
 {
-    public class Respond
+    public class RespondDto
     {
         public long respondentId { get; set; }
         public long invitationId { get; set; }
@@ -8,8 +8,8 @@ namespace MovinderAPI.Models
 
         //related
 
-        public User responder {get; set; }
+        public UserDto responder {get; set; }
 
-        public Invitation invitaiton {get; set; }
+        public InvitationDto invitaiton {get; set; }
     }
 }

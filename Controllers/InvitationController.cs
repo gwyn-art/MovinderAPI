@@ -62,7 +62,7 @@ namespace MovinderAPI.Controllers
         }
 
         [HttpPost("new")]
-        public IActionResult Create([FromBody] Invitaiton invitation)
+        public IActionResult Create([FromBody] Invitation invitation)
         {
             var user = _context.Users.SingleOrDefault(u => u.Id == invitation.inviterId);
 
