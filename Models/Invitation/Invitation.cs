@@ -11,11 +11,9 @@ namespace MovinderAPI.Models
         public long Id { get; set; }
         [Required]
         public string city { get; set; }
-        [Required]
         public string cinema { get; set; }
-        [Required]
         public string movie { get; set; }
-        [Required]
+        public string time { get; set; }
         public long inviterId { get; set; }
 
         //related

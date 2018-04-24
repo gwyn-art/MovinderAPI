@@ -31,10 +31,11 @@ namespace MovinderAPI.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    cinema = table.Column<string>(nullable: false),
+                    cinema = table.Column<string>(nullable: true),
                     city = table.Column<string>(nullable: false),
                     inviterId = table.Column<long>(nullable: false),
-                    movie = table.Column<string>(nullable: false)
+                    movie = table.Column<string>(nullable: true),
+                    time = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

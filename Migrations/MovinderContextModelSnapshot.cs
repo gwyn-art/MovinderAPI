@@ -18,21 +18,21 @@ namespace MovinderAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
 
-            modelBuilder.Entity("MovinderAPI.Models.Invitaiton", b =>
+            modelBuilder.Entity("MovinderAPI.Models.Invitation", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("cinema")
-                        .IsRequired();
+                    b.Property<string>("cinema");
 
                     b.Property<string>("city")
                         .IsRequired();
 
                     b.Property<long>("inviterId");
 
-                    b.Property<string>("movie")
-                        .IsRequired();
+                    b.Property<string>("movie");
+
+                    b.Property<string>("time");
 
                     b.HasKey("Id");
 
@@ -81,7 +81,7 @@ namespace MovinderAPI.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("MovinderAPI.Models.Invitaiton", b =>
+            modelBuilder.Entity("MovinderAPI.Models.Invitation", b =>
                 {
                     b.HasOne("MovinderAPI.Models.User", "inviter")
                         .WithMany("InvaterPosts")
@@ -91,7 +91,7 @@ namespace MovinderAPI.Migrations
 
             modelBuilder.Entity("MovinderAPI.Models.Respond", b =>
                 {
-                    b.HasOne("MovinderAPI.Models.Invitaiton", "invitaiton")
+                    b.HasOne("MovinderAPI.Models.Invitation", "invitaiton")
                         .WithMany("responders")
                         .HasForeignKey("invitationId")
                         .OnDelete(DeleteBehavior.Cascade);

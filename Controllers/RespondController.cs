@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Options;
 using System.Web;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace MovinderAPI.Controllers
 {
@@ -78,14 +79,15 @@ namespace MovinderAPI.Controllers
             });
         }
 
-        [HttpPost("getUsersResponses")]
+        [HttpPost("getResponsesToUser")]
         public IActionResult UsersRepsonses([FromBody] UserDto userDto)
         {
-            var invitations = _context.Invitaitons
+            List<Invitation> invitations = _context.Invitaitons
                 .Include(i => i.responders)
-                .All(i => i.inviterId == userDto.id);
+                .Where(i => i.inviterId == userDto.id)
+                .ToList();
             
-            var invitationsDto = _mapper.Map<InvitationDto>(invitations);
+            var invitationsDto = _mapper.Map<List<InvitationDto>>(invitations);
 
             return Ok(new {
                 success = true,

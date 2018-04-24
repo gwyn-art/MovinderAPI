@@ -74,6 +74,12 @@ namespace MovinderAPI.Controllers
                 });
             }
 
+            if (invitation.city == null)
+                return Ok(new {
+                    success = false,
+                    error = $"City is required."
+                });
+
             _context.Invitaitons.Add(invitation);
             _context.SaveChanges();
 
