@@ -77,7 +77,12 @@ namespace MovinderAPI.Controllers
             _context.Invitaitons.Add(invitation);
             _context.SaveChanges();
 
-            return CreatedAtRoute("get", new { id = invitation.Id }, invitation);
+            InvitationDto invitationDto = _mapper.Map<InvitationDto>(invitation);
+
+            return Ok(new {
+                success = true,
+                invitation = invitationDto
+            });
         }
     }
 
