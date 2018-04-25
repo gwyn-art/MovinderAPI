@@ -89,10 +89,7 @@ namespace MovinderAPI.Controllers
             
             var invitationsDto = _mapper.Map<List<InvitationDto>>(invitations);
 
-            return Ok(new {
-                success = true,
-                responds = invitationsDto
-            });
+            return this.Json(invitationsDto);
         }
     }
 }
